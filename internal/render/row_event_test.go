@@ -430,6 +430,31 @@ func TestRowEventsSort(t *testing.T) {
 				{Row: render.Row{ID: "A", Fields: render.Fields{"1", "2", testTime().Add(20 * time.Second).String()}}},
 			},
 		},
+		"age_time_string": {
+			re: render.RowEvents{
+				{Row: render.Row{ID: "A", Fields: render.Fields{"1", "2", "2m22s"}}},
+				{Row: render.Row{ID: "B", Fields: render.Fields{"10", "20", "2m23s"}}},
+				{Row: render.Row{ID: "C", Fields: render.Fields{"8", "9", "3m24s"}}},
+				{Row: render.Row{ID: "D", Fields: render.Fields{"8", "9", "4m27s"}}},
+				{Row: render.Row{ID: "A1", Fields: render.Fields{"0", "2", "9s"}}},
+				{Row: render.Row{ID: "B1", Fields: render.Fields{"10", "2", "10s"}}},
+				{Row: render.Row{ID: "C1", Fields: render.Fields{"6", "7", "30s"}}},
+				{Row: render.Row{ID: "D1", Fields: render.Fields{"4", "5", "81s"}}},
+			},
+			col:      2,
+			asc:      true,
+			duration: true,
+			e: render.RowEvents{
+				{Row: render.Row{ID: "A1", Fields: render.Fields{"0", "2", "9s"}}},
+				{Row: render.Row{ID: "B1", Fields: render.Fields{"10", "2", "10s"}}},
+				{Row: render.Row{ID: "C1", Fields: render.Fields{"6", "7", "30s"}}},
+				{Row: render.Row{ID: "D1", Fields: render.Fields{"4", "5", "81s"}}},
+				{Row: render.Row{ID: "A", Fields: render.Fields{"1", "2", "2m22s"}}},
+				{Row: render.Row{ID: "B", Fields: render.Fields{"10", "20", "2m23s"}}},
+				{Row: render.Row{ID: "C", Fields: render.Fields{"8", "9", "3m24s"}}},
+				{Row: render.Row{ID: "D", Fields: render.Fields{"8", "9", "4m27s"}}},
+			},
+		},
 		"col0": {
 			re: render.RowEvents{
 				{Row: render.Row{ID: "A", Fields: render.Fields{"1", "2", "3"}}},
